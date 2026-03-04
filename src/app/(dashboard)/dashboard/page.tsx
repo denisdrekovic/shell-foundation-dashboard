@@ -8,7 +8,8 @@ import InteractiveMap from "@/components/map/InteractiveMap";
 import MapLegend from "@/components/map/MapLegend";
 import DetailPanel from "@/components/layout/DetailPanel";
 import LocationDetailPanel from "@/components/map/LocationDetailPanel";
-import WomensEmpowermentCard from "@/components/cards/WomensEmpowermentCard";
+import WomensEmpowermentTrigger from "@/components/cards/WomensEmpowermentTrigger";
+import WomensEmpowermentSidebarContent from "@/components/cards/WomensEmpowermentSidebarContent";
 import HeroStat from "@/components/cards/HeroStat";
 import CategoryCard from "@/components/cards/CategoryCard";
 import Card from "@/components/ui/Card";
@@ -19,10 +20,18 @@ import { incomeToColor } from "@/lib/mapUtils";
 import { ReactNode } from "react";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
+type SidebarView =
+  | { type: "partner"; location: EnrichedGeoLocation }
+  | { type: "empowerment" }
+  | null;
+
 export default function DashboardPage() {
   const { filters } = useFilters();
-  const [selectedLocation, setSelectedLocation] =
-    useState<EnrichedGeoLocation | null>(null);
+  const [sidebarView, setSidebarView] = useState<SidebarView>(null);
+
+  // Backward-compatible derived value for map & partner pills
+  const selectedLocation =
+    sidebarView?.type === "partner" ? sidebarView.location : null;
 
   const allLocations = useMemo(() => enrichGeoData(), []);
 
@@ -32,7 +41,15 @@ export default function DashboardPage() {
   );
 
   const handleMarkerClick = (loc: EnrichedGeoLocation) => {
-    setSelectedLocation(loc);
+    setSidebarView({ type: "partner", location: loc });
+  };
+
+  const handleEmpowermentClick = () => {
+    setSidebarView({ type: "empowerment" });
+  };
+
+  const handlePanelClose = () => {
+    setSidebarView(null);
   };
 
   // Summary KPIs for the filtered set
@@ -86,7 +103,7 @@ export default function DashboardPage() {
     };
   }, [filteredLocations]);
 
-  const panelOpen = selectedLocation !== null;
+  const panelOpen = sidebarView !== null;
 
   return (
     <div
@@ -205,25 +222,40 @@ export default function DashboardPage() {
         })}
       </div>
 
-      {/* Women's Empowerment */}
-      <WomensEmpowermentCard locations={filteredLocations} />
+      {/* Women's Empowerment trigger */}
+      <WomensEmpowermentTrigger
+        locations={filteredLocations}
+        onClick={handleEmpowermentClick}
+        isActive={sidebarView?.type === "empowerment"}
+      />
 
-      {/* Detail Panel (slides in from right) */}
+      {/* Detail Panel (slides in from right) — partner detail OR empowerment */}
       <DetailPanel
-        isOpen={selectedLocation !== null}
-        onClose={() => setSelectedLocation(null)}
-        title={selectedLocation?.partnerName || ""}
+        isOpen={panelOpen}
+        onClose={handlePanelClose}
+        title={
+          sidebarView?.type === "partner"
+            ? sidebarView.location.partnerName
+            : sidebarView?.type === "empowerment"
+              ? "Women\u2019s Economic Empowerment"
+              : ""
+        }
         subtitle={
-          selectedLocation
-            ? `${selectedLocation.country} · ${selectedLocation.asset}`
-            : ""
+          sidebarView?.type === "partner"
+            ? `${sidebarView.location.country} \u00b7 ${sidebarView.location.asset}`
+            : sidebarView?.type === "empowerment"
+              ? `${filteredLocations.length} partners \u00b7 ${new Set(filteredLocations.map((l) => l.country)).size} countries`
+              : ""
         }
       >
-        {selectedLocation && (
+        {sidebarView?.type === "partner" && (
           <LocationDetailPanel
-            location={selectedLocation}
+            location={sidebarView.location}
             gender={filters.gender}
           />
+        )}
+        {sidebarView?.type === "empowerment" && (
+          <WomensEmpowermentSidebarContent locations={filteredLocations} />
         )}
       </DetailPanel>
     </div>

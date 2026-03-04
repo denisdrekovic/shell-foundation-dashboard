@@ -8,6 +8,8 @@ import { PortfolioCategory } from "@/types/partner";
 import { formatCurrency } from "@/lib/formatters";
 import { incomeToColor } from "@/lib/mapUtils";
 import GroupComparisonChart from "@/components/segmentation/GroupComparisonChart";
+import ChartContainer from "@/components/ui/ChartContainer";
+import { prepareGroupCompCSV } from "@/lib/csvHelpers";
 import clsx from "clsx";
 
 type CompareBy = "country" | "portfolio" | "income-band";
@@ -156,16 +158,30 @@ export default function SegmentationPage() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <GroupComparisonChart
-          groups={chartGroups}
-          metric="income"
+        <ChartContainer
           title={`Average Income${genderLabel}`}
-        />
-        <GroupComparisonChart
-          groups={chartGroups}
-          metric="ratio"
+          subtitle="Average daily income at endline ($/day)"
+          csvData={prepareGroupCompCSV(chartGroups)}
+          csvFilename={`segmentation-income-${compareBy}`}
+        >
+          <GroupComparisonChart
+            groups={chartGroups}
+            metric="income"
+            title={`Average Income${genderLabel}`}
+          />
+        </ChartContainer>
+        <ChartContainer
           title="Living Wage Progress"
-        />
+          subtitle="Average income as % of living wage"
+          csvData={prepareGroupCompCSV(chartGroups)}
+          csvFilename={`segmentation-ratio-${compareBy}`}
+        >
+          <GroupComparisonChart
+            groups={chartGroups}
+            metric="ratio"
+            title="Living Wage Progress"
+          />
+        </ChartContainer>
       </div>
 
       {/* Groups as clean tables */}

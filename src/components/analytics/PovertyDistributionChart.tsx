@@ -23,17 +23,9 @@ export default function PovertyDistributionChart({
 }: PovertyDistributionChartProps) {
   return (
     <div
-      className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-4"
       role="img"
-      aria-label={`Poverty distribution chart showing estimated distribution of ${numBeneficiaries.toLocaleString()} beneficiaries across income thresholds for baseline and projected scenarios.`}
+      aria-label={`Poverty distribution chart for ${numBeneficiaries.toLocaleString()} beneficiaries.`}
     >
-      <h3 className="text-xs font-semibold text-title uppercase tracking-wider mb-1">
-        Poverty Distribution
-      </h3>
-      <p className="text-[10px] text-gray mb-3">
-        Estimated distribution of {numBeneficiaries.toLocaleString()} beneficiaries
-        across income thresholds
-      </p>
       <div className="h-52">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -77,3 +69,5 @@ export default function PovertyDistributionChart({
     </div>
   );
 }
+
+export { type PovertyDistributionChartProps };

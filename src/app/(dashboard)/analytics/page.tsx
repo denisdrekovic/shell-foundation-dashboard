@@ -20,6 +20,14 @@ import PovertyDistributionChart from "@/components/analytics/PovertyDistribution
 import LivingIncomeGapChart from "@/components/analytics/LivingIncomeGapChart";
 import SensitivityTable from "@/components/analytics/SensitivityTable";
 import CountryComparisonChart from "@/components/analytics/CountryComparisonChart";
+import ChartContainer from "@/components/ui/ChartContainer";
+import {
+  prepareProjectedIncomeCSV,
+  prepareCountryCompCSV,
+  preparePovertyCSV,
+  prepareWaterfallCSV,
+  prepareSensitivityCSV,
+} from "@/lib/csvHelpers";
 import { formatCurrency } from "@/lib/formatters";
 import { ChevronDown } from "lucide-react";
 
@@ -132,25 +140,60 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Projected income trajectory */}
-          <ProjectedIncomeChart data={trajectory} />
+          <ChartContainer
+            title="Projected Income Trajectory"
+            subtitle="12-month projection based on current parameter settings"
+            csvData={prepareProjectedIncomeCSV(trajectory)}
+            csvFilename="projected-income"
+          >
+            <ProjectedIncomeChart data={trajectory} />
+          </ChartContainer>
 
           {/* Country comparison */}
-          <CountryComparisonChart
-            data={countries}
-            actorColor={actorConf.color}
-          />
+          <ChartContainer
+            title="Country Comparison"
+            subtitle="How the current scenario plays out across different operating markets"
+            csvData={prepareCountryCompCSV(countries)}
+            csvFilename="country-comparison"
+          >
+            <CountryComparisonChart
+              data={countries}
+              actorColor={actorConf.color}
+            />
+          </ChartContainer>
 
           {/* Poverty distribution */}
-          <PovertyDistributionChart
-            data={poverty}
-            numBeneficiaries={inputs.numBeneficiaries}
-          />
+          <ChartContainer
+            title="Poverty Distribution"
+            subtitle={`Estimated distribution of ${inputs.numBeneficiaries.toLocaleString()} beneficiaries across income thresholds`}
+            csvData={preparePovertyCSV(poverty)}
+            csvFilename="poverty-distribution"
+          >
+            <PovertyDistributionChart
+              data={poverty}
+              numBeneficiaries={inputs.numBeneficiaries}
+            />
+          </ChartContainer>
 
           {/* Waterfall */}
-          <LivingIncomeGapChart data={waterfall} livingWage={livingWage} />
+          <ChartContainer
+            title="Living Income Gap Waterfall"
+            subtitle="Contribution of each driver to closing the living income gap"
+            csvData={prepareWaterfallCSV(waterfall)}
+            csvFilename="living-income-gap"
+          >
+            <LivingIncomeGapChart data={waterfall} livingWage={livingWage} />
+          </ChartContainer>
 
           {/* Sensitivity analysis */}
-          <SensitivityTable data={sensitivity} />
+          <ChartContainer
+            title="Sensitivity Analysis"
+            subtitle="Impact of +10% change in each driver on projected income (ranked by sensitivity)"
+            csvData={prepareSensitivityCSV(sensitivity)}
+            csvFilename="sensitivity-analysis"
+          >
+            <SensitivityTable data={sensitivity} />
+          </ChartContainer>
 
           {/* Methodology & Data Sources — collapsible */}
           <div

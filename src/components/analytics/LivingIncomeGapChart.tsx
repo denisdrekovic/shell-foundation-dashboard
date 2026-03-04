@@ -34,16 +34,9 @@ export default function LivingIncomeGapChart({
 
   return (
     <div
-      className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-4"
       role="img"
-      aria-label={`Waterfall chart showing income drivers. Living wage target: ${formatCurrency(livingWage)} per day.`}
+      aria-label={`Waterfall chart showing income drivers. Living wage: ${formatCurrency(livingWage)}/day.`}
     >
-      <h3 className="text-xs font-semibold text-title uppercase tracking-wider mb-1">
-        Living Income Gap Waterfall
-      </h3>
-      <p className="text-[10px] text-gray mb-3">
-        Contribution of each driver to closing the living income gap
-      </p>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

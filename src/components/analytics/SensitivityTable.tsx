@@ -12,16 +12,9 @@ export default function SensitivityTable({ data }: SensitivityTableProps) {
 
   return (
     <div
-      className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-4"
       role="region"
       aria-label="Sensitivity analysis: impact of income drivers ranked by sensitivity"
     >
-      <h3 className="text-xs font-semibold text-title uppercase tracking-wider mb-1">
-        Sensitivity Analysis
-      </h3>
-      <p className="text-[10px] text-gray mb-3">
-        Impact of +10% change in each driver on projected income (ranked by sensitivity)
-      </p>
       <div className="space-y-2.5" role="list" aria-label="Income drivers by sensitivity">
         {data.map((row) => {
           const barWidth = (row.elasticity / maxElasticity) * 100;

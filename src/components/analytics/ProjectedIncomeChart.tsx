@@ -32,16 +32,9 @@ export default function ProjectedIncomeChart({
 
   return (
     <div
-      className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-4"
       role="img"
-      aria-label={`Projected income trajectory chart. Baseline income: ${formatCurrency(data[0]?.baseline ?? 0)} per day. Projected income after 12 months: ${formatCurrency(data[data.length - 1]?.projected ?? 0)} per day. Living wage target: ${formatCurrency(livingWage)} per day.`}
+      aria-label={`Projected income trajectory chart. Baseline: ${formatCurrency(data[0]?.baseline ?? 0)}/day. Projected: ${formatCurrency(data[data.length - 1]?.projected ?? 0)}/day.`}
     >
-      <h3 className="text-xs font-semibold text-title uppercase tracking-wider mb-1">
-        Projected Income Trajectory
-      </h3>
-      <p className="text-[10px] text-gray mb-3">
-        12-month projection based on current parameter settings
-      </p>
       <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -115,3 +108,5 @@ export default function ProjectedIncomeChart({
     </div>
   );
 }
+
+export { type ProjectedIncomeChartProps };

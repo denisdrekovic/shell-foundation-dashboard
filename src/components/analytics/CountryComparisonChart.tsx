@@ -43,16 +43,9 @@ export default function CountryComparisonChart({
 
   return (
     <div
-      className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-4"
       role="img"
       aria-label="Country comparison chart showing baseline and projected incomes across operating markets"
     >
-      <h3 className="text-xs font-semibold text-title uppercase tracking-wider mb-1">
-        Country Comparison
-      </h3>
-      <p className="text-[10px] text-gray mb-3">
-        How the current scenario plays out across different operating markets
-      </p>
       <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -164,3 +157,5 @@ export default function CountryComparisonChart({
     </div>
   );
 }
+
+export { type CountryComparisonChartProps };

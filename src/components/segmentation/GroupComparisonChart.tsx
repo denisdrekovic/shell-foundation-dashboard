@@ -39,16 +39,9 @@ export default function GroupComparisonChart({
   if (metric === "ratio") {
     return (
       <div
-        className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-5"
         role="img"
         aria-label={`${title} chart comparing ${groups.map((g) => g.name).join(", ")} by living wage percentage.`}
       >
-        <h3 className="text-xs font-semibold text-title uppercase tracking-wider mb-1">
-          {title}
-        </h3>
-        <p className="text-[10px] text-gray mb-4">
-          Average income as % of living wage
-        </p>
         <div className="h-52">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
@@ -117,16 +110,9 @@ export default function GroupComparisonChart({
   // Income chart
   return (
     <div
-      className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-5"
       role="img"
       aria-label={`${title} chart comparing ${groups.map((g) => g.name).join(", ")} by average income.`}
     >
-      <h3 className="text-xs font-semibold text-title uppercase tracking-wider mb-1">
-        {title}
-      </h3>
-      <p className="text-[10px] text-gray mb-4">
-        Average daily income at endline ($/day)
-      </p>
       <div className="h-52">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

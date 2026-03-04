@@ -3,12 +3,20 @@
 import Sidebar from "@/components/layout/Sidebar";
 import TopBar from "@/components/layout/TopBar";
 import { FilterProvider } from "@/contexts/FilterContext";
+import { useAuth } from "@/contexts/AuthContext";
+import LoginScreen from "@/components/auth/LoginScreen";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <LoginScreen />;
+  }
+
   return (
     <FilterProvider>
       {/* Skip navigation link */}

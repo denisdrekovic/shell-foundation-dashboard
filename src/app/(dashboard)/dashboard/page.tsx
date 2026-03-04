@@ -17,6 +17,7 @@ import overviewData from "@/data/overview.json";
 import { formatCurrency } from "@/lib/formatters";
 import { incomeToColor } from "@/lib/mapUtils";
 import { ReactNode } from "react";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 export default function DashboardPage() {
   const { filters } = useFilters();
@@ -55,12 +56,32 @@ export default function DashboardPage() {
       (l) => l.incomeToWageRatio >= 1
     ).length;
 
+    // Baseline-period comparisons for trend indicators
+    const avgBaselineRatio =
+      filteredLocations.reduce(
+        (s, l) => s + (l.baselineIncome.all / l.livingWage),
+        0
+      ) / filteredLocations.length;
+    const aboveLivingWageBaseline = filteredLocations.filter(
+      (l) => l.baselineIncome.all / l.livingWage >= 1
+    ).length;
+    const incomeChangePct =
+      avgBaseline > 0 ? ((avgEndline - avgBaseline) / avgBaseline) * 100 : 0;
+    const ratioChangePct =
+      avgBaselineRatio > 0
+        ? ((avgRatio - avgBaselineRatio) / avgBaselineRatio) * 100
+        : 0;
+
     return {
       avgEndline,
       avgBaseline,
       avgRatio,
+      avgBaselineRatio,
       totalSample,
       aboveLivingWage,
+      aboveLivingWageBaseline,
+      incomeChangePct,
+      ratioChangePct,
       partnerCount: filteredLocations.length,
     };
   }, [filteredLocations]);
@@ -105,17 +126,25 @@ export default function DashboardPage() {
             label={<>Avg Income <MetricTooltip text="Average daily endline income across all partners in the current view, in USD per day." /></>}
             value={formatCurrency(summaryStats.avgEndline)}
             sub="/day (endline)"
+            trend={{ value: summaryStats.incomeChangePct, label: "vs baseline" }}
           />
           <KPICard
             label={<>Living Wage Gap <MetricTooltip text="Average endline income as a percentage of the local living wage benchmark. 100% means income meets the living wage." /></>}
             value={`${Math.round(summaryStats.avgRatio * 100)}%`}
             sub="of living wage"
             color={summaryStats.avgRatio >= 0.8 ? "text-green" : summaryStats.avgRatio >= 0.5 ? "text-gold" : "text-income-low"}
+            trend={{ value: summaryStats.ratioChangePct, label: "vs baseline" }}
           />
           <KPICard
             label={<>Above Living Wage <MetricTooltip text="Number of partners whose average endline income meets or exceeds the local living wage." /></>}
             value={String(summaryStats.aboveLivingWage)}
             sub={`of ${summaryStats.partnerCount} partners`}
+            trend={{
+              value: summaryStats.aboveLivingWageBaseline > 0
+                ? ((summaryStats.aboveLivingWage - summaryStats.aboveLivingWageBaseline) / summaryStats.aboveLivingWageBaseline) * 100
+                : summaryStats.aboveLivingWage > 0 ? 100 : 0,
+              label: "vs baseline",
+            }}
           />
           <KPICard
             label={<>Total Sample <MetricTooltip text="Total number of beneficiaries surveyed across all partners in the current filtered view." /></>}
@@ -206,12 +235,28 @@ function KPICard({
   value,
   sub,
   color,
+  trend,
 }: {
   label: ReactNode;
   value: string;
   sub: string;
   color?: string;
+  trend?: { value: number; label: string };
 }) {
+  const TrendIcon =
+    trend && Math.abs(trend.value) < 0.5
+      ? Minus
+      : trend && trend.value >= 0
+        ? TrendingUp
+        : TrendingDown;
+
+  const trendColor =
+    trend && Math.abs(trend.value) < 0.5
+      ? "text-gray"
+      : trend && trend.value >= 0
+        ? "text-green"
+        : "text-income-low";
+
   return (
     <div className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-3 text-center" role="listitem">
       <p className="text-[10px] text-gray uppercase tracking-wide">{label}</p>
@@ -219,6 +264,18 @@ function KPICard({
         {value}
       </p>
       <p className="text-[10px] text-gray">{sub}</p>
+      {trend && (
+        <div className={`flex items-center justify-center gap-1 mt-1.5 ${trendColor}`}>
+          <TrendIcon size={12} />
+          <span className="text-[11px] font-semibold">
+            {trend.value >= 0 ? "+" : ""}
+            {trend.value.toFixed(1)}%
+          </span>
+          <span className="text-[10px] text-gray font-normal">
+            {trend.label}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

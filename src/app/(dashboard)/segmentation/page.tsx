@@ -163,6 +163,35 @@ export default function SegmentationPage() {
           subtitle="Average daily income at endline ($/day)"
           csvData={prepareGroupCompCSV(chartGroups)}
           csvFilename={`segmentation-income-${compareBy}`}
+          tableView={
+            <div className="overflow-x-auto">
+              <table className="w-full text-[11px]">
+                <thead>
+                  <tr className="border-b border-surface-alt text-[10px] text-gray uppercase tracking-wide">
+                    <th className="text-left py-2 pr-3 font-medium">Group</th>
+                    <th className="text-right py-2 px-3 font-medium">Avg Income ($/day)</th>
+                    <th className="text-right py-2 px-3 font-medium">Men ($/day)</th>
+                    <th className="text-right py-2 px-3 font-medium">Women ($/day)</th>
+                    <th className="text-right py-2 pl-3 font-medium">Partners</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {chartGroups.map((g) => (
+                    <tr key={g.name} className="border-b border-surface-alt/50">
+                      <td className="py-1.5 pr-3 font-medium text-title flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full inline-block shrink-0" style={{ backgroundColor: g.color }} />
+                        {g.name}
+                      </td>
+                      <td className="py-1.5 px-3 text-right">{formatCurrency(g.avgIncome)}</td>
+                      <td className="py-1.5 px-3 text-right">{formatCurrency(g.avgMen)}</td>
+                      <td className="py-1.5 px-3 text-right">{formatCurrency(g.avgWomen)}</td>
+                      <td className="py-1.5 pl-3 text-right">{g.count}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          }
         >
           <GroupComparisonChart
             groups={chartGroups}
@@ -175,6 +204,31 @@ export default function SegmentationPage() {
           subtitle="Average income as % of living wage"
           csvData={prepareGroupCompCSV(chartGroups)}
           csvFilename={`segmentation-ratio-${compareBy}`}
+          tableView={
+            <div className="overflow-x-auto">
+              <table className="w-full text-[11px]">
+                <thead>
+                  <tr className="border-b border-surface-alt text-[10px] text-gray uppercase tracking-wide">
+                    <th className="text-left py-2 pr-3 font-medium">Group</th>
+                    <th className="text-right py-2 px-3 font-medium">% of Living Wage</th>
+                    <th className="text-right py-2 pl-3 font-medium">Partners</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {chartGroups.map((g) => (
+                    <tr key={g.name} className="border-b border-surface-alt/50">
+                      <td className="py-1.5 pr-3 font-medium text-title flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full inline-block shrink-0" style={{ backgroundColor: g.color }} />
+                        {g.name}
+                      </td>
+                      <td className="py-1.5 px-3 text-right">{g.avgRatio.toFixed(0)}%</td>
+                      <td className="py-1.5 pl-3 text-right">{g.count}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          }
         >
           <GroupComparisonChart
             groups={chartGroups}

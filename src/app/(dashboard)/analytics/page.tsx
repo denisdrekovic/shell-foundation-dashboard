@@ -29,7 +29,7 @@ import {
   prepareSensitivityCSV,
 } from "@/lib/csvHelpers";
 import { formatCurrency } from "@/lib/formatters";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 export default function AnalyticsPage() {
   const [inputs, setInputs] = useState<PredictiveInputs>(DEFAULT_INPUTS);
@@ -107,6 +107,7 @@ export default function AnalyticsPage() {
               label="Projected Income"
               value={formatCurrency(currentIncome) + "/day"}
               color={currentIncome >= livingWage ? "#00A17D" : "#FFC000"}
+              trend={{ value: pctChange, label: "vs baseline" }}
             />
             <KPICard
               label="Income Change"
@@ -145,6 +146,28 @@ export default function AnalyticsPage() {
             subtitle="12-month projection based on current parameter settings"
             csvData={prepareProjectedIncomeCSV(trajectory)}
             csvFilename="projected-income"
+            tableView={
+              <div className="overflow-x-auto">
+                <table className="w-full text-[11px]">
+                  <thead>
+                    <tr className="border-b border-surface-alt text-[10px] text-gray uppercase tracking-wide">
+                      <th className="text-left py-2 pr-3 font-medium">Month</th>
+                      <th className="text-right py-2 px-3 font-medium">Baseline ($/day)</th>
+                      <th className="text-right py-2 pl-3 font-medium">Projected ($/day)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {trajectory.map((pt) => (
+                      <tr key={pt.month} className="border-b border-surface-alt/50">
+                        <td className="py-1.5 pr-3 font-medium text-title">Month {pt.month}</td>
+                        <td className="py-1.5 px-3 text-right">{formatCurrency(pt.baseline)}</td>
+                        <td className="py-1.5 pl-3 text-right">{formatCurrency(pt.projected)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            }
           >
             <ProjectedIncomeChart data={trajectory} />
           </ChartContainer>
@@ -155,6 +178,34 @@ export default function AnalyticsPage() {
             subtitle="How the current scenario plays out across different operating markets"
             csvData={prepareCountryCompCSV(countries)}
             csvFilename="country-comparison"
+            tableView={
+              <div className="overflow-x-auto">
+                <table className="w-full text-[11px]">
+                  <thead>
+                    <tr className="border-b border-surface-alt text-[10px] text-gray uppercase tracking-wide">
+                      <th className="text-left py-2 pr-3 font-medium">Country</th>
+                      <th className="text-right py-2 px-3 font-medium">Baseline ($/day)</th>
+                      <th className="text-right py-2 px-3 font-medium">Projected ($/day)</th>
+                      <th className="text-right py-2 px-3 font-medium">Living Wage</th>
+                      <th className="text-right py-2 px-3 font-medium">Gap</th>
+                      <th className="text-left py-2 pl-3 font-medium">Partners</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {countries.map((c) => (
+                      <tr key={c.country} className="border-b border-surface-alt/50">
+                        <td className="py-1.5 pr-3 font-medium text-title">{c.country}</td>
+                        <td className="py-1.5 px-3 text-right">{formatCurrency(c.baseline)}</td>
+                        <td className="py-1.5 px-3 text-right">{formatCurrency(c.projected)}</td>
+                        <td className="py-1.5 px-3 text-right">{formatCurrency(c.livingWage)}</td>
+                        <td className="py-1.5 px-3 text-right">{c.gap > 0 ? formatCurrency(c.gap) : "—"}</td>
+                        <td className="py-1.5 pl-3 text-gray">{c.partners.join(", ")}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            }
           >
             <CountryComparisonChart
               data={countries}
@@ -168,6 +219,32 @@ export default function AnalyticsPage() {
             subtitle={`Estimated distribution of ${inputs.numBeneficiaries.toLocaleString()} beneficiaries across income thresholds`}
             csvData={preparePovertyCSV(poverty)}
             csvFilename="poverty-distribution"
+            tableView={
+              <div className="overflow-x-auto">
+                <table className="w-full text-[11px]">
+                  <thead>
+                    <tr className="border-b border-surface-alt text-[10px] text-gray uppercase tracking-wide">
+                      <th className="text-left py-2 pr-3 font-medium">Scenario</th>
+                      <th className="text-right py-2 px-3 font-medium">Extreme Poverty</th>
+                      <th className="text-right py-2 px-3 font-medium">Below Poverty</th>
+                      <th className="text-right py-2 px-3 font-medium">Below Living Wage</th>
+                      <th className="text-right py-2 pl-3 font-medium">Above Living Wage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {poverty.map((p) => (
+                      <tr key={p.label} className="border-b border-surface-alt/50">
+                        <td className="py-1.5 pr-3 font-medium text-title">{p.label}</td>
+                        <td className="py-1.5 px-3 text-right">{p.belowExtremePoverty.toLocaleString()}</td>
+                        <td className="py-1.5 px-3 text-right">{p.belowPovertyLine.toLocaleString()}</td>
+                        <td className="py-1.5 px-3 text-right">{p.belowLivingWage.toLocaleString()}</td>
+                        <td className="py-1.5 pl-3 text-right">{p.aboveLivingWage.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            }
           >
             <PovertyDistributionChart
               data={poverty}
@@ -181,6 +258,33 @@ export default function AnalyticsPage() {
             subtitle="Contribution of each driver to closing the living income gap"
             csvData={prepareWaterfallCSV(waterfall)}
             csvFilename="living-income-gap"
+            tableView={
+              <div className="overflow-x-auto">
+                <table className="w-full text-[11px]">
+                  <thead>
+                    <tr className="border-b border-surface-alt text-[10px] text-gray uppercase tracking-wide">
+                      <th className="text-left py-2 pr-3 font-medium">Driver</th>
+                      <th className="text-right py-2 px-3 font-medium">Contribution ($/day)</th>
+                      <th className="text-right py-2 px-3 font-medium">From</th>
+                      <th className="text-right py-2 pl-3 font-medium">To</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {waterfall.map((seg) => (
+                      <tr key={seg.name} className="border-b border-surface-alt/50">
+                        <td className="py-1.5 pr-3 font-medium text-title flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full inline-block shrink-0" style={{ backgroundColor: seg.fill }} />
+                          {seg.name}
+                        </td>
+                        <td className="py-1.5 px-3 text-right">{seg.value >= 0 ? "+" : ""}{formatCurrency(seg.value)}</td>
+                        <td className="py-1.5 px-3 text-right">{formatCurrency(seg.start)}</td>
+                        <td className="py-1.5 pl-3 text-right">{formatCurrency(seg.end)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            }
           >
             <LivingIncomeGapChart data={waterfall} livingWage={livingWage} />
           </ChartContainer>
@@ -191,6 +295,34 @@ export default function AnalyticsPage() {
             subtitle="Impact of +10% change in each driver on projected income (ranked by sensitivity)"
             csvData={prepareSensitivityCSV(sensitivity)}
             csvFilename="sensitivity-analysis"
+            tableView={
+              <div className="overflow-x-auto">
+                <table className="w-full text-[11px]">
+                  <thead>
+                    <tr className="border-b border-surface-alt text-[10px] text-gray uppercase tracking-wide">
+                      <th className="text-left py-2 pr-3 font-medium">Driver</th>
+                      <th className="text-right py-2 px-3 font-medium">Sensitivity (%)</th>
+                      <th className="text-right py-2 px-3 font-medium">Impact ($/day)</th>
+                      <th className="text-right py-2 pl-3 font-medium">Direction</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sensitivity.map((row) => (
+                      <tr key={row.driver} className="border-b border-surface-alt/50">
+                        <td className="py-1.5 pr-3 font-medium text-title">{row.driver}</td>
+                        <td className="py-1.5 px-3 text-right">{row.elasticity.toFixed(1)}%</td>
+                        <td className="py-1.5 px-3 text-right">{row.direction === "positive" ? "+" : ""}{formatCurrency(row.currentImpact)}</td>
+                        <td className="py-1.5 pl-3 text-right">
+                          <span className={row.direction === "positive" ? "text-green" : "text-income-low"}>
+                            {row.direction === "positive" ? "↑ Positive" : "↓ Negative"}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            }
           >
             <SensitivityTable data={sensitivity} />
           </ChartContainer>
@@ -384,12 +516,28 @@ function KPICard({
   value,
   sub,
   color,
+  trend,
 }: {
   label: string;
   value: string;
   sub?: string;
   color: string;
+  trend?: { value: number; label: string };
 }) {
+  const TrendIcon =
+    trend && Math.abs(trend.value) < 0.5
+      ? Minus
+      : trend && trend.value >= 0
+        ? TrendingUp
+        : TrendingDown;
+
+  const trendColor =
+    trend && Math.abs(trend.value) < 0.5
+      ? "text-gray"
+      : trend && trend.value >= 0
+        ? "text-green"
+        : "text-income-low";
+
   return (
     <div
       className="bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-3 text-center"
@@ -403,6 +551,18 @@ function KPICard({
         {value}
       </p>
       {sub && <p className="text-[10px] text-gray">{sub}</p>}
+      {trend && (
+        <div className={`flex items-center justify-center gap-1 mt-1.5 ${trendColor}`}>
+          <TrendIcon size={12} />
+          <span className="text-[11px] font-semibold">
+            {trend.value >= 0 ? "+" : ""}
+            {trend.value.toFixed(1)}%
+          </span>
+          <span className="text-[10px] text-gray font-normal">
+            {trend.label}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,87 @@
+{
+  "id": "sistema-bio",
+  "name": "Sistema.bio",
+  "portfolio": "smallholder-farmers",
+  "country": "India",
+  "asset": "Biodigester",
+  "sampleSize": 532,
+  "incomeUplift": {
+    "bins": [
+      { "rangeLabel": "<=-100", "rangeLow": -999, "rangeHigh": -100, "men": 2, "women": 1, "all": 3 },
+      { "rangeLabel": "-100 to -90", "rangeLow": -100, "rangeHigh": -90, "men": 1, "women": 0, "all": 1 },
+      { "rangeLabel": "-90 to -80", "rangeLow": -90, "rangeHigh": -80, "men": 1, "women": 1, "all": 2 },
+      { "rangeLabel": "-80 to -70", "rangeLow": -80, "rangeHigh": -70, "men": 2, "women": 1, "all": 3 },
+      { "rangeLabel": "-70 to -60", "rangeLow": -70, "rangeHigh": -60, "men": 1, "women": 2, "all": 3 },
+      { "rangeLabel": "-60 to -50", "rangeLow": -60, "rangeHigh": -50, "men": 3, "women": 1, "all": 4 },
+      { "rangeLabel": "-50 to -40", "rangeLow": -50, "rangeHigh": -40, "men": 3, "women": 2, "all": 5 },
+      { "rangeLabel": "-40 to -30", "rangeLow": -40, "rangeHigh": -30, "men": 5, "women": 3, "all": 8 },
+      { "rangeLabel": "-30 to -20", "rangeLow": -30, "rangeHigh": -20, "men": 6, "women": 4, "all": 10 },
+      { "rangeLabel": "-20 to -10", "rangeLow": -20, "rangeHigh": -10, "men": 8, "women": 7, "all": 15 },
+      { "rangeLabel": "-10 to 0", "rangeLow": -10, "rangeHigh": 0, "men": 14, "women": 12, "all": 26 },
+      { "rangeLabel": "0 to 10", "rangeLow": 0, "rangeHigh": 10, "men": 22, "women": 18, "all": 40 },
+      { "rangeLabel": "10 to 20", "rangeLow": 10, "rangeHigh": 20, "men": 35, "women": 30, "all": 65 },
+      { "rangeLabel": "20 to 30", "rangeLow": 20, "rangeHigh": 30, "men": 42, "women": 38, "all": 80 },
+      { "rangeLabel": "30 to 40", "rangeLow": 30, "rangeHigh": 40, "men": 38, "women": 35, "all": 73 },
+      { "rangeLabel": "40 to 50", "rangeLow": 40, "rangeHigh": 50, "men": 30, "women": 28, "all": 58 },
+      { "rangeLabel": "50 to 60", "rangeLow": 50, "rangeHigh": 60, "men": 22, "women": 20, "all": 42 },
+      { "rangeLabel": "60 to 70", "rangeLow": 60, "rangeHigh": 70, "men": 16, "women": 14, "all": 30 },
+      { "rangeLabel": "70 to 80", "rangeLow": 70, "rangeHigh": 80, "men": 12, "women": 10, "all": 22 },
+      { "rangeLabel": "80 to 90", "rangeLow": 80, "rangeHigh": 90, "men": 9, "women": 7, "all": 16 },
+      { "rangeLabel": "90 to 100", "rangeLow": 90, "rangeHigh": 100, "men": 6, "women": 5, "all": 11 },
+      { "rangeLabel": ">=100", "rangeLow": 100, "rangeHigh": 999, "men": 8, "women": 7, "all": 15 }
+    ],
+    "stats": { "mean": 17.3, "median": 23.6 }
+  },
+  "incomeBenchmarks": {
+    "baseline": { "label": "Baseline", "men": 5.35, "women": 4.85, "all": 5.10 },
+    "endline": { "label": "Endline", "men": 6.25, "women": 5.75, "all": 6.00 },
+    "referenceLines": {
+      "worldBankInternational": 2.15,
+      "worldBankCountry": 3.65,
+      "livingWage": 7.20
+    }
+  },
+  "qualityOfLife": [
+    {
+      "question": "Able to cover all essential food & housing expenses",
+      "stronglyAgree": 32,
+      "agree": 50,
+      "disagree": 13,
+      "stronglyDisagree": 5
+    },
+    {
+      "question": "Able to cover all essential health & education expenses",
+      "stronglyAgree": 28,
+      "agree": 52,
+      "disagree": 15,
+      "stronglyDisagree": 5
+    },
+    {
+      "question": "Have enough of our preferred foods year round",
+      "stronglyAgree": 25,
+      "agree": 55,
+      "disagree": 15,
+      "stronglyDisagree": 5
+    },
+    {
+      "question": "Able to make plans for the future of the household",
+      "stronglyAgree": 30,
+      "agree": 48,
+      "disagree": 16,
+      "stronglyDisagree": 6
+    },
+    {
+      "question": "Has enough savings to cope with unexpected expenses",
+      "stronglyAgree": 22,
+      "agree": 45,
+      "disagree": 24,
+      "stronglyDisagree": 9
+    }
+  ],
+  "resilience": [
+    { "label": "Without any difficulty", "value": 58.1, "color": "#00A17D" },
+    { "label": "With some difficulty", "value": 27.8, "color": "#2A1055" },
+    { "label": "With great difficulty", "value": 12.8, "color": "#FFC000" },
+    { "label": "Could not manage at all", "value": 1.3, "color": "#910D63" }
+  ]
+}

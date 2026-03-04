@@ -1,0 +1,101 @@
+[
+  {
+    "evaluationPartner": "I4DI",
+    "portfolio": "microentrepreneurs",
+    "partner": "Odyssey Energy Solutions",
+    "country": "Nigeria",
+    "asset": "PUE platform",
+    "sampleSize": 102,
+    "meanUplift": null,
+    "medianUplift": 60.8,
+    "proportionAbove20": 0.66
+  },
+  {
+    "evaluationPartner": "I4DI",
+    "portfolio": "smallholder-farmers",
+    "partner": "S4S",
+    "country": "India",
+    "asset": "Solar dryer",
+    "sampleSize": 355,
+    "meanUplift": null,
+    "medianUplift": 29.8,
+    "proportionAbove20": 0.52
+  },
+  {
+    "evaluationPartner": "I4DI",
+    "portfolio": "smallholder-farmers",
+    "partner": "Sistema.bio",
+    "country": "India",
+    "asset": "Biodigester",
+    "sampleSize": 532,
+    "meanUplift": null,
+    "medianUplift": 23.6,
+    "proportionAbove20": 0.59
+  },
+  {
+    "evaluationPartner": "The Canopy Lab/60dB",
+    "portfolio": "transporters",
+    "partner": "SIDBI",
+    "country": "India",
+    "asset": "EV",
+    "sampleSize": 115,
+    "meanUplift": null,
+    "medianUplift": 40.0,
+    "proportionAbove20": 0.59
+  },
+  {
+    "evaluationPartner": "The Canopy Lab/60dB",
+    "portfolio": "transporters",
+    "partner": "M-Kopa",
+    "country": "Kenya",
+    "asset": "EV",
+    "sampleSize": 301,
+    "meanUplift": null,
+    "medianUplift": 22.9,
+    "proportionAbove20": 0.50
+  },
+  {
+    "evaluationPartner": "The Canopy Lab/60dB",
+    "portfolio": "transporters",
+    "partner": "Ampersand",
+    "country": "Rwanda",
+    "asset": "EV",
+    "sampleSize": 288,
+    "meanUplift": null,
+    "medianUplift": 14.6,
+    "proportionAbove20": 0.46
+  },
+  {
+    "evaluationPartner": "Duke University",
+    "portfolio": "microentrepreneurs",
+    "partner": "Keep IT Cool",
+    "country": "Kenya",
+    "asset": "Solar cold storage",
+    "sampleSize": 425,
+    "meanUplift": 28.6,
+    "medianUplift": null,
+    "proportionAbove20": 0.34
+  },
+  {
+    "evaluationPartner": "Duke University",
+    "portfolio": "microentrepreneurs",
+    "partner": "Odyssey",
+    "country": "Nigeria",
+    "asset": "PUE platform",
+    "sampleSize": 102,
+    "meanUplift": 60.8,
+    "medianUplift": null,
+    "proportionAbove20": 0.66
+  },
+  {
+    "evaluationPartner": "I4DI",
+    "portfolio": "smallholder-farmers",
+    "partner": "Sunculture",
+    "country": "Kenya",
+    "asset": "Solar irrigation",
+    "sampleSize": 180,
+    "meanUplift": null,
+    "medianUplift": 15.0,
+    "proportionAbove20": 0.42
+  }
+]

@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-deep-purple: #2A1055;
+  --color-plum: #910D63;
+  --color-green: #00A17D;
+  --color-gray: #6D6A6A;
+  --color-gold: #FFC000;
+
+  --color-purple-tint: #E4D5F5;
+  --color-green-tint: #D4F0E7;
+  --color-gold-tint: #FFF4D1;
+  --color-surface: #F5F3F7;
+  --color-surface-alt: #EDEBEF;
+  --color-background: #FAFAFA;
+
+  --color-title: #2B2D2E;
+  --color-body: #3D4043;
+
+  --font-heading: var(--font-poppins), "Segoe UI", sans-serif;
+  --font-body: "Calibri", var(--font-poppins), sans-serif;
+
+  --radius-card: 0.875rem;
+  --radius-card-lg: 1.125rem;
+  --radius-button: 0.625rem;
+
+  --shadow-card: 0 2px 12px rgba(42, 16, 85, 0.06);
+  --shadow-card-hover: 0 4px 20px rgba(42, 16, 85, 0.1);
+  --shadow-elevated: 0 8px 30px rgba(42, 16, 85, 0.12);
+
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 64px;
+  --topbar-height: 56px;
+  --detail-panel-width: 400px;
+
+  --color-income-low: #DC2626;
+  --color-income-mid: #FFC000;
+  --color-income-high: #00A17D;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: var(--color-body);
+    background-color: var(--color-background);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    color: var(--color-title);
+  }
 }

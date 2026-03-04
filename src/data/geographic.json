@@ -1,0 +1,66 @@
+[
+  {
+    "partnerId": "sistema-bio",
+    "partnerName": "Sistema.bio",
+    "portfolio": "smallholder-farmers",
+    "country": "India",
+    "coordinates": [78.96, 20.59],
+    "sampleSize": 532
+  },
+  {
+    "partnerId": "s4s",
+    "partnerName": "S4S",
+    "portfolio": "smallholder-farmers",
+    "country": "India",
+    "coordinates": [75.71, 19.25],
+    "sampleSize": 355
+  },
+  {
+    "partnerId": "sunculture",
+    "partnerName": "Sunculture",
+    "portfolio": "smallholder-farmers",
+    "country": "Kenya",
+    "coordinates": [37.91, -0.02],
+    "sampleSize": 180
+  },
+  {
+    "partnerId": "ampersand-rwanda",
+    "partnerName": "Ampersand Rwanda",
+    "portfolio": "transporters",
+    "country": "Rwanda",
+    "coordinates": [29.87, -1.94],
+    "sampleSize": 288
+  },
+  {
+    "partnerId": "m-kopa",
+    "partnerName": "M-KOPA",
+    "portfolio": "transporters",
+    "country": "Kenya",
+    "coordinates": [36.82, -1.29],
+    "sampleSize": 301
+  },
+  {
+    "partnerId": "sidbi",
+    "partnerName": "SIDBI",
+    "portfolio": "transporters",
+    "country": "India",
+    "coordinates": [80.95, 26.85],
+    "sampleSize": 115
+  },
+  {
+    "partnerId": "keep-it-cool",
+    "partnerName": "Keep IT Cool",
+    "portfolio": "microentrepreneurs",
+    "country": "Kenya",
+    "coordinates": [36.08, -0.28],
+    "sampleSize": 425
+  },
+  {
+    "partnerId": "odyssey",
+    "partnerName": "Odyssey",
+    "portfolio": "microentrepreneurs",
+    "country": "Nigeria",
+    "coordinates": [7.49, 9.06],
+    "sampleSize": 102
+  }
+]
